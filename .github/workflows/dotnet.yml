@@ -25,4 +25,4 @@ jobs:
       run: dotnet pack -c Release -o out  
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./<project>/out/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push ./Alpha.Common/out/*.nupkg --skip-duplicate --no-symbols true
