@@ -6,4 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <RepositoryUrl>https://nuget.pkg.github.com/mludeiro/index.json</RepositoryUrl>
+
 </Project>
