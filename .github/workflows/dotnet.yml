@@ -7,7 +7,10 @@ on:
   push:
     branches: [ "main" ]
     paths: Alpha.Common/Alpha.Common.csproj
-
+  pull_request:
+    branches: [ "main" ]
+    paths: Alpha.Common/Alpha.Common.csproj
+  
 jobs:
   build:
     runs-on: ubuntu-latest
