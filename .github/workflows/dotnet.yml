@@ -6,8 +6,7 @@ name: Alpha Common Library
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths: Alpha.Common/Alpha.Common.csproj
 
 jobs:
   build:
