@@ -1,0 +1,50 @@
+using System.Net;
+using System.Numerics;
+using Consul;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+
+namespace Alpha.Utils.Consul;
+
+public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consulConfig, 
+    ILogger<ConsulHostedService> logger) : IHostedService
+{
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        var host = Dns.GetHostName();
+        var stringPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORTS");
+        var port = stringPort is null ? 8080 : int.Parse(stringPort);
+        var address = $"http://{host}:{port}";
+
+        var registration = new AgentServiceRegistration
+        {
+            ID = address,
+            Name = consulConfig.ServiceId,
+            Address = address,
+            Port = port
+        };
+
+        var check = new AgentServiceCheck
+        {
+            HTTP = $"{address}/health",
+            Interval = TimeSpan.FromSeconds(20),
+            Timeout = TimeSpan.FromSeconds(2)
+        };
+
+        registration.Checks = [check];
+
+        logger.LogInformation($"Registering service with Consul: {registration.Name}");
+
+        await consulClient.Agent.ServiceDeregister(registration.ID, cancellationToken);
+        await consulClient.Agent.ServiceRegister(registration, cancellationToken);
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        logger.LogInformation($"Deregistering service from Consul: {consulConfig.ServiceId}");
+
+        var registration = new AgentServiceRegistration { ID = consulConfig.ServiceId };
+
+        await consulClient.Agent.ServiceDeregister(registration.ID, cancellationToken);
+    }
+}
