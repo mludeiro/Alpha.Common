@@ -19,7 +19,7 @@ public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consul
         {
             ID = address,
             Name = consulConfig.ServiceId,
-            Address = address,
+            Address = host,
             Port = port
         };
 
