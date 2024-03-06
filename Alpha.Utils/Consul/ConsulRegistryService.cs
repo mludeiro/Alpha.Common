@@ -1,8 +1,7 @@
 using System.Net;
-using System.Numerics;
 using Consul;
-using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Alpha.Utils.Consul;
 
