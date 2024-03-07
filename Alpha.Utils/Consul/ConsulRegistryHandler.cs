@@ -1,6 +1,7 @@
 using System.Net;
 using Consul;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace Alpha.Utils.Consul;
 
