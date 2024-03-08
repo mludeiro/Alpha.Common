@@ -37,13 +37,13 @@ public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consul
         {
             ID = $"{host}:{port}",
             Name = consulConfig.ServiceId,
-            Address = $"http://{host}:{port}",
+            Address = host,
             Port = port
         };
 
         var check = new AgentServiceCheck
         {
-            HTTP = $"{registration.Address}/health",
+            HTTP = $"http://{host}:{port}/health",
             Interval = TimeSpan.FromSeconds(20),
             Timeout = TimeSpan.FromSeconds(2)
         };
