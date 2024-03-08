@@ -26,22 +26,22 @@ public class ConsulRegistryHandler(IConsulClient consulClient, IMemoryCache memC
             };
         }
 
-        logger.LogInformation($"Colsul resolved service {serviceName} on address {service.ServiceAddress}");
+        logger.LogInformation($"Colsul resolved service {serviceName} on address {service.Service.Address}");
 
-        request.RequestUri = new Uri($"http://{service.ServiceAddress}:{service.ServicePort}{request.RequestUri.PathAndQuery}");
+        request.RequestUri = new Uri($"http://{service.Service.Address}:{service.Service.Port}{request.RequestUri.PathAndQuery}");
         
         return await base.SendAsync(request, cancellationToken);
     }
 
-    private async Task<CatalogService?> GetRandomCatalogService(string serviceName, CancellationToken cancellationToken)
+    private async Task<ServiceEntry?> GetRandomCatalogService(string serviceName, CancellationToken cancellationToken)
     {
         var memKey = $"ConsulRegistryHandler/{serviceName}";
-        var catalog = memCache.Get<QueryResult<CatalogService[]>>(memKey);
+        var catalog = memCache.Get<QueryResult<ServiceEntry[]>>(memKey);
 
         if( catalog is null )
         {
             logger.LogInformation($"Colsul catalog request for service {serviceName}");
-            catalog = await consulClient.Catalog.Service(serviceName,cancellationToken);
+            catalog = await consulClient.Health.Service(serviceName,cancellationToken);
             memCache.Set(memKey, catalog, DateTimeOffset.Now.AddSeconds(30));
         }
 
