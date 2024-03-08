@@ -24,7 +24,7 @@ public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consul
 
         AgentServiceRegistration registration = CreateRegistration();
 
-        await consulClient.Agent.ServiceDeregister(registration.ID, cancellationToken);
+        await consulClient.Agent.ServiceDeregister(registration.ID, CancellationToken.None);
     }
 
     private AgentServiceRegistration CreateRegistration()
