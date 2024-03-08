@@ -32,19 +32,18 @@ public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consul
         var host = Dns.GetHostName();
         var stringPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORTS");
         var port = stringPort is null ? 8080 : int.Parse(stringPort);
-        var address = $"http://{host}:{port}";
 
         var registration = new AgentServiceRegistration
         {
-            ID = address,
+            ID = $"{host}:{port}",
             Name = consulConfig.ServiceId,
-            Address = host,
+            Address = $"http://{host}:{port}",
             Port = port
         };
 
         var check = new AgentServiceCheck
         {
-            HTTP = $"{address}/health",
+            HTTP = $"{registration.Address}/health",
             Interval = TimeSpan.FromSeconds(20),
             Timeout = TimeSpan.FromSeconds(2)
         };
