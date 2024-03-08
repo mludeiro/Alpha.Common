@@ -12,7 +12,7 @@ public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consul
     {
         AgentServiceRegistration registration = CreateRegistration();
 
-        logger.LogInformation($"Registering service with Consul: {registration.Name}");
+        logger.LogInformation($"Registering service with Consul: {registration.Name} - Id {registration.ID}");
 
         await consulClient.Agent.ServiceDeregister(registration.ID, cancellationToken);
         await consulClient.Agent.ServiceRegister(registration, cancellationToken);
@@ -20,9 +20,9 @@ public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consul
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
-        logger.LogInformation($"Deregistering service from Consul: {consulConfig.ServiceId}");
-
         AgentServiceRegistration registration = CreateRegistration();
+
+        logger.LogInformation($"Deregistering service from Consul: {consulConfig.ServiceId} - Id {registration.ID}");
 
         await consulClient.Agent.ServiceDeregister(registration.ID, CancellationToken.None);
     }
