@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Alpha.Utils.Database;
+namespace Alpha.Common.Database;
 
 public class DbMigrationBackgroundService<T>(IServiceProvider serviceProvider) : BackgroundService
     where T : DbContext

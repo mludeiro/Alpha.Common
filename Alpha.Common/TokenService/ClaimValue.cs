@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Alpha.Common.Token;
+namespace Alpha.Common.TokenService;
 
 public class ClaimValue
 {

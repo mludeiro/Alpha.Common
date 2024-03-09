@@ -3,7 +3,7 @@ using Consul;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Alpha.Utils.Consul;
+namespace Alpha.Common.Consul;
 
 public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consulConfig, 
     ILogger<ConsulHostedService> logger) : IHostedService
