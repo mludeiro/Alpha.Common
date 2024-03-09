@@ -8,5 +8,5 @@ public interface ITokenService
     public Task<ApiResponse<TokenGeneration?>> GetToken([Body]List<ClaimValue> claimValues);
 
     [Get("/api/check")]
-    public Task<ApiResponse<object>> CheckToken();
+    public Task<ApiResponse<object>> CheckToken([Header("Authorization")] string authorization);
 }
