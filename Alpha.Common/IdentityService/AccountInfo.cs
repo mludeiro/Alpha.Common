@@ -35,7 +35,7 @@ public class AccountInfo
     public bool TwoFactorEnabled { get; set; }
 
     [JsonProperty("lockoutEnd")]
-    public DateTime LockoutEnd { get; set; }
+    public DateTimeOffset? LockoutEnd { get; set; }
 
     [JsonProperty("lockoutEnabled")]
     public bool LockoutEnabled { get; set; }
