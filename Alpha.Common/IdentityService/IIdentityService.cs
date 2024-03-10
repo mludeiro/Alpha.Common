@@ -11,7 +11,7 @@ public interface IIdentityService
     [Post("/api/account/login")]
     public Task<ApiResponse<TokenGeneration>> Login([Body]AccountLogin accountLogin);
 
-    [Post("/api/account/me")]
+    [Get("/api/account/me")]
     public Task<ApiResponse<AccountInfo>> Me();
 
 }
