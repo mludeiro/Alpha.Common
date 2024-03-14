@@ -44,8 +44,10 @@ public class ConsulHostedService(IConsulClient consulClient, ConsulConfig consul
         var check = new AgentServiceCheck
         {
             HTTP = $"http://{host}:{port}/health",
-            Interval = TimeSpan.FromSeconds(20),
-            Timeout = TimeSpan.FromSeconds(2)
+            Interval = TimeSpan.FromSeconds(consulConfig.IntervalSeconds ?? 20),
+            Timeout = TimeSpan.FromSeconds(consulConfig.TimeoutSeconds ?? 2),
+            DeregisterCriticalServiceAfter = TimeSpan
+                .FromSeconds(consulConfig.DeregisterCriticalServiceAfterSeconds ?? 30)
         };
 
         registration.Checks = [check];
