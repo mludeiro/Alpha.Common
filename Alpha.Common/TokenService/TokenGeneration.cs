@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Alpha.Common.TokenService;
 
-public class TokenGeneration
+public record TokenGeneration
 {
     [JsonPropertyName("token")]
     public string? Token {get; set;}

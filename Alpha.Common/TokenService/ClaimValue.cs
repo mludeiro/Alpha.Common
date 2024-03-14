@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Alpha.Common.TokenService;
 
-public class ClaimValue
+public record ClaimValue
 {
     [JsonPropertyName("type")]
     public string? Type { get; set; }
