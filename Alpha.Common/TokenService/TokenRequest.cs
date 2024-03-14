@@ -7,6 +7,9 @@ public record TokenRequest
     [JsonPropertyName("id")]
     public required string Id { get; set; }
 
+    [JsonPropertyName("userId")]
+    public required Guid UserId { get; set; }
+
     [JsonPropertyName("userName")]
     public required string UserName { get; set; }
 
