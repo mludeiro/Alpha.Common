@@ -4,9 +4,6 @@ namespace Alpha.Common.TokenService;
 
 public record TokenRequest
 {
-    [JsonPropertyName("id")]
-    public required string Id { get; set; }
-
     [JsonPropertyName("userId")]
     public required string UserId { get; set; }
 
