@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.24</Version>
+    <Version>1.0.25</Version>
     <RepositoryUrl>https://github.com/mludeiro/Alpha.Common</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
@@ -11,5 +11,8 @@
     <PackageReference Include="Consul.Microsoft.Extensions.Configuration" Version="0.0.2"/>
     <PackageReference Include="EntityFrameworkCore.Extensions" Version="5.0.0"/>
     <PackageReference Include="Refit" Version="7.0.0"/>
+    <PackageReference Include="AspNetCore.Authentication.JwtBearer.Extension" Version="1.0.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3"/>
   </ItemGroup>
 </Project>
