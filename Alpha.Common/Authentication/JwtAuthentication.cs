@@ -17,7 +17,7 @@ public static class JwtAuthentication
     }
 
 
-    private static AuthenticationBuilder AddAlphaWithoutSignatureAuthentication( IServiceCollection builder, JwtOptions options)
+    private static AuthenticationBuilder AddAlphaWithoutSignatureAuthentication( IServiceCollection builder, JwtOptions jwtoptions)
     {
         return builder
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -28,8 +28,8 @@ public static class JwtAuthentication
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    ValidIssuer = options.ClaimsIssuer,
-                    ValidAudience = options.Audience,
+                    ValidIssuer = jwtoptions.Issuer,
+                    ValidAudience = jwtoptions.Audience,
                     // Do not validate signature
                     ValidateIssuerSigningKey = false,
                     SignatureValidator = (string token, TokenValidationParameters parameters) => new JwtSecurityToken(token)
@@ -37,18 +37,18 @@ public static class JwtAuthentication
             });
     }
 
-    private static AuthenticationBuilder AddAlphaWithSignatureAuthentication( IServiceCollection builder, JwtOptions options)
+    private static AuthenticationBuilder AddAlphaWithSignatureAuthentication( IServiceCollection builder, JwtOptions jwtoptions)
     {
         var tokenValidationParameters = new TokenValidationParameters()
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key!)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtoptions.Key!)),
 
             ValidateIssuer = true,
-            ValidIssuer = options.Issuer,
+            ValidIssuer = jwtoptions.Issuer,
 
             ValidateAudience = true,
-            ValidAudience = options.Audience,
+            ValidAudience = jwtoptions.Audience,
 
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
