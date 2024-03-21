@@ -6,10 +6,10 @@ name: Alpha Tools Library
 on:
   push:
     branches: [ "main" ]
-    paths: Alpha.Utils/Alpha.Tools.csproj
+    paths: Alpha.Tools/Alpha.Tools.csproj
   pull_request:
     branches: [ "main" ]
-    paths: Alpha.Utils/Alpha.Tools.csproj
+    paths: Alpha.Tools/Alpha.Tools.csproj
 
 jobs:
   build:
