@@ -1,4 +1,4 @@
-namespace Alpha.Common.Consul;
+namespace Alpha.Tools.Consul;
 
 public class ConsulConfig
 {

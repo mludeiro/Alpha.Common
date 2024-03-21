@@ -2,7 +2,7 @@ using Consul;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Alpha.Common.Consul;
+namespace Alpha.Tools.Consul;
 
 public static class ConsulServicesExtensions
 {

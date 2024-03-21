@@ -1,4 +1,4 @@
-namespace Alpha.Common.Security;
+namespace Alpha.Tools.Security;
 
 public class JwtOptions
 {

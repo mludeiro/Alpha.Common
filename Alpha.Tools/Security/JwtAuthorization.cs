@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Authorization;
 
-namespace Alpha.Common.Security;
+namespace Alpha.Tools.Security;
 
 public static class JwtAuthorization
 {

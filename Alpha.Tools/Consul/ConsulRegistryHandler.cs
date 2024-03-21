@@ -3,7 +3,7 @@ using Consul;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace Alpha.Common.Consul;
+namespace Alpha.Tools.Consul;
 
 public class ConsulRegistryHandler(IConsulClient consulClient, IMemoryCache memCache, 
     ILogger<ConsulRegistryHandler> logger) : DelegatingHandler

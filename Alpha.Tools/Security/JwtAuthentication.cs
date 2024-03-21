@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
-namespace Alpha.Common.Security;
+namespace Alpha.Tools.Security;
 
 public static class JwtAuthentication
 {
