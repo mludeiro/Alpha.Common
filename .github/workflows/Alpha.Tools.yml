@@ -1,15 +1,15 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: Alpha Utils Library
+name: Alpha Tools Library
 
 on:
   push:
     branches: [ "main" ]
-    paths: Alpha.Utils/Alpha.Utils.csproj
+    paths: Alpha.Utils/Alpha.Tools.csproj
   pull_request:
     branches: [ "main" ]
-    paths: Alpha.Utils/Alpha.Utils.csproj
+    paths: Alpha.Utils/Alpha.Tools.csproj
 
 jobs:
   build:
