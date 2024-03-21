@@ -15,7 +15,7 @@ public interface IIdentityService
     public Task<ApiResponse<AccountInfo>> Me();
 
     [Get("/api/account/me")]
-    public Task<ApiResponse<AccountInfo>> Me([Authorize] string authorize);
+    public Task<ApiResponse<AccountInfo>> Me([Header("Authorize")] string authorize);
 
 
 }
