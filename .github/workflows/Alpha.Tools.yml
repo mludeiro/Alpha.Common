@@ -24,7 +24,7 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Build solution and generate NuGet package
-      run: cd Alpha.Utils && dotnet pack -c Release -o out  
+      run: cd Alpha.Tools && dotnet pack -c Release -o out  
 
     - name: Push generated package to GitHub registry
-      run: cd Alpha.Utils && dotnet nuget push ./out/*.nupkg --source https://nuget.pkg.github.com/mludeiro/index.json --api-key ${{ secrets.NUGET_TOKEN }}
+      run: cd Alpha.Tools && dotnet nuget push ./out/*.nupkg --source https://nuget.pkg.github.com/mludeiro/index.json --api-key ${{ secrets.NUGET_TOKEN }}
