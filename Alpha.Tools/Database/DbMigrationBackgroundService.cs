@@ -1,19 +1,38 @@
+using Dapr.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Alpha.Tools.Database;
 
-public class DbMigrationBackgroundService<T>(IServiceProvider serviceProvider) : BackgroundService
+public class DbMigrationBackgroundService<T>(IServiceProvider serviceProvider, 
+    ILogger<DbMigrationBackgroundService<T>> logger) : BackgroundService
     where T : DbContext
 {
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var scope = serviceProvider.CreateScope();
         var dataContext = scope.ServiceProvider.GetRequiredService<T>();
 
-        dataContext.Database.Migrate();
+        using var daprClient = new DaprClientBuilder().Build();
 
-        return Task.CompletedTask;
+        // Using distributed lock
+        var randomId = Guid.NewGuid().ToString();
+        var storeName = daprClient.GetType().FullName;
+        var resource = this.GetType().Name;
+        logger.LogInformation($"Migration >>> Locking resource '{resource}' on store '{storeName}'");
+        await using var fileLock = await daprClient.Lock(storeName, resource, randomId, 60, stoppingToken);
+
+        if (fileLock.Success)
+        {
+            logger.LogInformation("Migration >>> Starting");
+            dataContext.Database.Migrate();
+            logger.LogInformation("Migration >>> Finished");
+        }
+        else
+        {
+            logger.LogError("Migration >>> Failed to LOCK dapr resource for migration");
+        }
     }
 }
