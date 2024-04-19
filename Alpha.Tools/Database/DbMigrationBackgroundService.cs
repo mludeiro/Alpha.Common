@@ -19,10 +19,9 @@ public class DbMigrationBackgroundService<T>(IServiceProvider serviceProvider,
 
         // Using distributed lock
         var randomId = Guid.NewGuid().ToString();
-        var storeName = daprClient.GetType().FullName;
-        var resource = this.GetType().Name;
-        logger.LogInformation($"Migration >>> Locking resource '{resource}' on store '{storeName}'");
-        await using var fileLock = await daprClient.Lock(storeName, resource, randomId, 60, stoppingToken);
+        var resource = daprClient.GetType().FullName;
+        logger.LogInformation($"Migration >>> Locking resource '{resource}'");
+        await using var fileLock = await daprClient.Lock("lockstore", resource, randomId, 60, stoppingToken);
 
         if (fileLock.Success)
         {
